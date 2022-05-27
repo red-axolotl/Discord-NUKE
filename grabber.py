@@ -4,6 +4,9 @@ import threading
 import time
 
 class Grabber:
+    def __init__(self, token) -> None:
+        self.token = token
+
     def send_json_request(self, request:dict):
         self.ws.send(json.dumps(request))
 
@@ -35,14 +38,14 @@ class Grabber:
     def getMessage(self) -> list:
 
 
-        # token = "Njc3MjEwNDUxOTA5NjcyOTkz.YHHsQg.U2u5r6d7zBPcLWquXhoI56vA8ug"
-        token = "ODc4MDU5NTUxNzA5MDg1Nzc3.Yeko3w.UAZRXV6s9xBDZ77miqHsgCRhOUU"
-        header = {"authorization":token}
+        header = {
+            "authorization": self.token,
+            }
 
         payload = {
             "op": 2,
             "d": {
-                "token": token,
+                "token": self.token,
                 "properties": {
                     "$os": "windows",
                     "$browser": "chrome",
@@ -58,7 +61,7 @@ class Grabber:
                 event = self.recieve_json_response()
                 try:
                     if event["d"]["content"]:
-                        return [event["d"]["content"], event["d"]["channel_id"]]
+                        return [event["d"]["content"], event["d"]["channel_id"], event["d"]["guild_id"]]
                 except:
                     pass
         except:
