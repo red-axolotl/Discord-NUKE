@@ -1,11 +1,13 @@
 #!/bin/python3
 
-import json
 import grabber
 import Destroyers
 import threading
+import json
 
-TOKEN = "ODc4MDU5NTUxNzA5MDg1Nzc3.Yeko3w.UAZRXV6s9xBDZ77miqHsgCRhOUU"
+config = json.loads(open("config.json").read())
+
+TOKEN = config["token"]
 # WIDGET_URL = "https://discord.com/api/guilds/868198915105759242/widget.json"
 
 def parse(message: list) -> None:
